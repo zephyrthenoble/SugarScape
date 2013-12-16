@@ -48,16 +48,17 @@ public class Agent
    }
    public void update()
    {
-      System.out.println("updating");
       Sugar s = search();
       System.out.println("Going to "+s);
       if (s!=null)
       {
          moveTo(s);
       }
+      else
+         System.out.println(this);
       age++;
-      //if (age>=death_age || sugar < 0)
-         //remove = true;
+      if (age>=death_age || sugar < 0)
+         remove = true;
    }
    public int getX(){
       return xpos;} 
@@ -85,20 +86,23 @@ public class Agent
       return remove;}
    public void moveTo(Sugar s)
    {
+      SugarPanel.agent_grid[getX()][getY()] = null;
       setX(s.getX());
       setY(s.getY());
+      SugarPanel.agent_grid[getX()][getY()] = this;
       addSugar(s.getSugar());
       s.removeSugar();
    }
    public Sugar search()
    {
       ArrayList<Sugar> s= new ArrayList<Sugar>();
+      ArrayList<Sugar> empty = new ArrayList<Sugar>();
       double max = -1;
       int value = (int)(getSugar()*2);
       if (value > getMetabolism())
-         value= getMetabolism();
-      for(int x = value*-1; x < value; x++)
-         for(int y = value*-1; y < value; y++)       
+         value = getMetabolism();
+      for(int x = value*-1; x < value+1; x++)
+         for(int y = value*-1; y < value+1; y++)       
          {
             int xp = getX() + x;
             int yp = getY() + y;
@@ -106,6 +110,7 @@ public class Agent
             if (xp >=0 && xp < SugarPanel.grid_width && yp >=0 && yp < SugarPanel.grid_height)
                if(SugarPanel.agent_grid[xp][yp] == null)
                {
+                  empty.add(SugarPanel.sugar_grid[xp][yp]);
                   if (SugarPanel.sugar_grid[xp][yp].getSugar() > max)
                   {
                      s = new ArrayList<Sugar>();
@@ -119,7 +124,10 @@ public class Agent
                }
          }
       if(s.size() ==0)
-         return null;
+         if(empty.size() != 0)
+            return empty.get((int)(Math.random()*s.size()));
+         else
+            return null;
       Sugar element = s.get((int)(Math.random()*s.size()));
       return element;
    }
