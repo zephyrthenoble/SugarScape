@@ -49,12 +49,12 @@ public class Agent
    public void update()
    {
       Sugar s = search();
-      System.out.println("Going to "+s);
+      if(SugarPanel.verbose) System.out.println("Going to "+s);
       if (s!=null)
       {
          moveTo(s);
       }
-      else
+      else if(SugarPanel.verbose)
          System.out.println(this);
       age++;
       if (age>=death_age || sugar < 0)

@@ -28,6 +28,15 @@ public class Sugar
    
       add();
    }
+      
+   public Sugar(int xpos, int ypos, double sugar, double saturated)
+   {
+      this.xpos = xpos;
+      this.ypos = ypos;
+      this.sugar = sugar;
+      this.saturated = saturated;
+      add();
+   }
    public Sugar()
    {
       int iter = 0;
@@ -42,6 +51,10 @@ public class Sugar
       
    
       add();
+   }
+   public static Sugar empty_plot(int x,int y)
+   {
+      return new Sugar(x,y,0,0);
    }
    public void add()
    {

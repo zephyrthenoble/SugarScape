@@ -16,7 +16,8 @@ import java.awt.geom.Rectangle2D;
 
 public class SugarPanel extends JPanel
 {      
-   public static boolean verbose = true;
+   public static boolean verbose = false;
+   public static boolean running = true;
    public static boolean[] keys=new boolean[5];
 
 
@@ -55,36 +56,18 @@ public class SugarPanel extends JPanel
       addKeyListener(new Key());
    
    }
-   public void paintComponent(Graphics g)
-   {
-      
-      g.drawImage(myImage, 0, 0, getWidth(), getHeight(), null);
-      
-   }
-   public void init()
-   {
-      
-      for(int x = 0; x < 10; x++)
-      {
-         Agent a = new Agent();
-         if(verbose)System.out.println(a);
-      }
-      
-      for(int x = 0; x < (grid_width); x++)
-         for(int y = 0; y < (grid_height); y++)
-         {
-            Sugar a = new Sugar(x,y);
-            if(verbose)System.out.println(a);
-         }
-   }
+
    public void update()
    {
+   
+   
       myImage =  new BufferedImage(W, H, BufferedImage.TYPE_INT_RGB);
       myBuffer = myImage.createGraphics();
       myBuffer.setColor(BACKGROUND);
       myBuffer.fillRect(0, 0, W, H);
       
-      update_state();
+      if(running)
+         update_state();
       draw_state();
       
       
@@ -136,6 +119,49 @@ public class SugarPanel extends JPanel
       
          myBuffer.fillOval(getCellWidth()*a.getX()+4, getCellHeight()*a.getY()+4, getCellWidth()-8, getCellHeight()-8);
       }
+   }
+   
+   public void paintComponent(Graphics g)
+   {
+      
+      g.drawImage(myImage, 0, 0, getWidth(), getHeight(), null);
+      
+   }
+   public void clear()
+   {
+      agents = new ArrayList<Agent>();
+      sugar = new ArrayList<Sugar>();
+      agent_grid = null;
+      sugar_grid = null;
+   }
+   
+   public void init()
+   {
+      randomInit();
+   }
+   public void randomInit()
+   {
+      for(int x = 0; x < 10; x++)
+      {
+         Agent a = new Agent();
+         if(verbose)System.out.println(a);
+      }
+      
+      for(int x = 0; x < (grid_width); x++)
+         for(int y = 0; y < (grid_height); y++)
+         {
+            Sugar a = new Sugar(x,y);
+            if(verbose)System.out.println(a);
+         }
+   }
+   public void blankInit()
+   {
+      for(int x = 0; x < (grid_width); x++)
+         for(int y = 0; y < (grid_height); y++)
+         {
+            Sugar a = Sugar.empty_plot(x,y);
+            if(verbose)System.out.println(a);
+         }
    }
    public int getCellWidth()
    {

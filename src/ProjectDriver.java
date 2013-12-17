@@ -5,8 +5,9 @@ import java.awt.Dimension;
  @author Mitchell Smith**/
 public class ProjectDriver
 {
-   public static JFrame frame = new JFrame("Slide");
+   public static JFrame frame = new JFrame("SugarScape ");
    public static SugarPanel p;
+   public static SugarMenu m;
    /**Sets up the game.**/
    public static void main(String[] args)
    {
@@ -15,8 +16,10 @@ public class ProjectDriver
       frame.setResizable(false);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       p=new SugarPanel();
+      m=new SugarMenu();
       p.setPreferredSize(new Dimension(600,600));
       frame.setContentPane(p);
+      frame.setJMenuBar(m);
       frame.pack();
       frame.setLocationRelativeTo(null);
       frame.setVisible(true);
