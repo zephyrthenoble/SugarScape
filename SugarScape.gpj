@@ -16,7 +16,8 @@ s#n0classes
 s#p0doc
 s#q0test
 s#w0canvas
-!168;g
+!194;g
+%\011src%sUpdateable.java
 %\011src%sAgent.java
 %\011src%sInfoPanel.java
 %\011src%sSugarPanel.java
@@ -24,7 +25,8 @@ s#w0canvas
 %\011src%sPoint.java
 %\011src%sSugarMenu.java
 %\011src%sProjectDriver.java
-!168;f
+!194;f
+%\011src%sUpdateable.java
 %\011src%sAgent.java
 %\011src%sInfoPanel.java
 %\011src%sSugarPanel.java

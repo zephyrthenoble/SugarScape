@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Agent
+public class Agent implements Updateable
 {
    public static final int METABOLISM_MAX = 4;
    public static final int SUGAR_MAX = 20;

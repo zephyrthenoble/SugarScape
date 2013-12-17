@@ -1,5 +1,5 @@
 
-public class Sugar
+public class Sugar implements Updateable
 {
 //The global maximum sugar
    public static int MAX_SUGAR = 4;
