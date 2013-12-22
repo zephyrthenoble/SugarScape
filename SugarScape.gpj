@@ -1,5 +1,5 @@
 !1047;s
-A
+J
 SAU0PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning
 SCU0PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning
 S+U0PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning
@@ -16,7 +16,7 @@ s#n0classes
 s#p0doc
 s#q0test
 s#w0canvas
-!194;g
+!216;g
 %\011src%sUpdateable.java
 %\011src%sAgent.java
 %\011src%sInfoPanel.java
@@ -24,8 +24,9 @@ s#w0canvas
 %\011src%sSugar.java
 %\011src%sPoint.java
 %\011src%sSugarMenu.java
+%\011src%sScreen.java
 %\011src%sProjectDriver.java
-!194;f
+!216;f
 %\011src%sUpdateable.java
 %\011src%sAgent.java
 %\011src%sInfoPanel.java
@@ -33,4 +34,5 @@ s#w0canvas
 %\011src%sSugar.java
 %\011src%sPoint.java
 %\011src%sSugarMenu.java
+%\011src%sScreen.java
 %\011src%sProjectDriver.java

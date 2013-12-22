@@ -6,23 +6,23 @@ import java.awt.Dimension;
 public class ProjectDriver
 {
    public static JFrame frame = new JFrame("SugarScape ");
-   public static SugarPanel p;
+   public static Screen screen;
    public static SugarMenu m;
    /**Sets up the game.**/
    public static void main(String[] args)
    {
          //frame.setSize(600, 600);
          //frame.setLocation(150, 100);
-      frame.setResizable(false);
+      //frame.setResizable(false);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      p=new SugarPanel();
+      screen = new Screen();
       m=new SugarMenu();
-      p.setPreferredSize(new Dimension(600,600));
-      frame.setContentPane(p);
+      //screen.setPreferredSize(new Dimension(600,600));
+      frame.setContentPane(screen);
       frame.setJMenuBar(m);
       frame.pack();
       frame.setLocationRelativeTo(null);
       frame.setVisible(true);
-      p.requestFocus();
+      screen.requestFocus();
    }
 }

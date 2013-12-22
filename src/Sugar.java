@@ -71,6 +71,20 @@ public class Sugar implements Updateable
       return ypos;}
    public double getSugar(){
       return sugar;}
+   public double getMaxSugar(){
+      return saturated;}
+   public Agent getAgent(){
+      if(SugarPanel.agent_grid == null)
+         return null;
+      else
+         return SugarPanel.agent_grid[getX()][getY()];
+   }
+   public String getAgentID(){
+      if(getAgent() != null)
+         return ""+getAgent().getID();
+      else
+         return "none";
+   }
    public void removeSugar(){
       sugar=0;}
    public boolean removable(){

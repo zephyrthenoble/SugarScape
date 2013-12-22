@@ -19,7 +19,7 @@ public class SugarPanel extends JPanel
    public static boolean verbose = false;
    public static boolean running = true;
    public static boolean[] keys=new boolean[5];
-
+   public static int timestep = 500;
 
 	
 
@@ -35,7 +35,8 @@ public class SugarPanel extends JPanel
    public static ArrayList<Sugar> sugar=new ArrayList<Sugar>();
    public static Agent[][] agent_grid = new Agent[grid_width][grid_height];
    public static Sugar[][] sugar_grid = new Sugar[grid_width][grid_height];
-   Timer t=new Timer(200,new Updater());
+   public static InfoPanel i;
+   Timer t=new Timer(timestep,new Updater());
    
    private class Updater implements ActionListener
    {
@@ -44,8 +45,9 @@ public class SugarPanel extends JPanel
          update();
       }
    }
-   public SugarPanel()
+   public SugarPanel(InfoPanel i)
    {
+      this.i = i;
       myImage =  new BufferedImage(W, H, BufferedImage.TYPE_INT_RGB);
       myBuffer = myImage.createGraphics();
       myBuffer.setColor(BACKGROUND);
@@ -53,6 +55,7 @@ public class SugarPanel extends JPanel
       setFocusable(true);
       init();
       t.start();
+      i.select(1,1);
       addKeyListener(new Key());
    
    }
@@ -68,8 +71,10 @@ public class SugarPanel extends JPanel
       
       if(running)
          update_state();
+         
       draw_state();
       
+      i.update();
       
       repaint();
    }
@@ -91,6 +96,9 @@ public class SugarPanel extends JPanel
          if(a.removable())
             it.remove();
       }
+      
+      
+      
    }
    public void draw_state()
    {
