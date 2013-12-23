@@ -13,6 +13,6 @@ public class Screen extends JPanel
       p.setPreferredSize(new Dimension(600,600));
    
       add(p, BorderLayout.CENTER);
-      add(i, BorderLayout.SOUTH);
+      add(i, BorderLayout.EAST);
    }
 }

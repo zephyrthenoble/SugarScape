@@ -9,33 +9,33 @@ import java.awt.event.*;
 public class InfoPanel extends JPanel implements Updateable
 {
    private JPanel sugar;
-   private JLabel sid = new JLabel("ID:\t");
-   private JLabel sposition = new JLabel("(x,y):\t");
-   private JLabel ssugar = new JLabel("Sugar:\t");
-   private JLabel smax = new JLabel("Max sugar:\t");
+   private JLabel sid = new JLabel("ID:\t", 0);
+   private JLabel sposition = new JLabel("(x,y):\t", 0);
+   private JLabel ssugar = new JLabel("Sugar:\t", 0);
+   private JLabel smax = new JLabel("Max sugar:\t", 0);
    private JButton sagent = new JButton("Agent:\t");
    
-   private JLabel sidv = new JLabel();
-   private JLabel spositionv = new JLabel();
-   private JLabel ssugarv = new JLabel();
-   private JLabel smaxv = new JLabel();
-   private JLabel sagentv = new JLabel();
+   private JLabel sidv = new JLabel("",0);
+   private JLabel spositionv = new JLabel("",0);
+   private JLabel ssugarv = new JLabel("",0);
+   private JLabel smaxv = new JLabel("",0);
+   private JLabel sagentv = new JLabel("",0);
    
    
    
    
    private JPanel agent; 
-   private JLabel aid = new JLabel("ID:\t");
+   private JLabel aid = new JLabel("ID:\t", 0);
    private JButton aposition = new JButton("(x,y):\t");
-   private JLabel asugar = new JLabel("Sugar:\t");
-   private JLabel amax = new JLabel("Max sugar:\t");
-   private JLabel amet = new JLabel("Metabolism:\t");
+   private JLabel asugar = new JLabel("Sugar:\t", 0);
+   private JLabel amax = new JLabel("Max sugar:\t", 0);
+   private JLabel amet = new JLabel("Metabolism:\t", 0);
    
-   private JLabel aidv = new JLabel();
-   private JLabel apositionv = new JLabel();
-   private JLabel asugarv = new JLabel();
-   private JLabel amaxv = new JLabel();
-   private JLabel ametv = new JLabel();
+   private JLabel aidv = new JLabel("",0);
+   private JLabel apositionv = new JLabel("",0);
+   private JLabel asugarv = new JLabel("",0);
+   private JLabel amaxv = new JLabel("",0);
+   private JLabel ametv = new JLabel("",0);
    
    private int x = -1;
    private int y = -1;
@@ -44,7 +44,7 @@ public class InfoPanel extends JPanel implements Updateable
    Agent a;
    public InfoPanel()
    {
-      super(new GridLayout(1,2));
+      super(new GridLayout(2,1));
       sugar = new JPanel();
       agent = new JPanel();
       
