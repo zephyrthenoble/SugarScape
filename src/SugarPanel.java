@@ -1,5 +1,4 @@
 
-import java.io.*;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 import java.awt.*;
@@ -12,7 +11,8 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.geom.Rectangle2D;
-
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class SugarPanel extends JPanel
 {      
@@ -100,6 +100,16 @@ public class SugarPanel extends JPanel
       
       
    }
+   public static boolean pause()
+   {
+      if (running)
+      {
+         running = false;
+         return true;
+      }
+      running = true;
+      return false;
+   }
    public void draw_state()
    {
    
@@ -135,7 +145,7 @@ public class SugarPanel extends JPanel
       g.drawImage(myImage, 0, 0, getWidth(), getHeight(), null);
       
    }
-   public void clear()
+   public static void clear()
    {
       agents = new ArrayList<Agent>();
       sugar = new ArrayList<Sugar>();
@@ -171,6 +181,7 @@ public class SugarPanel extends JPanel
             if(verbose)System.out.println(a);
          }
    }
+
    public int getCellWidth()
    {
       return W/grid_width;

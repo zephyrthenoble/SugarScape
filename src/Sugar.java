@@ -52,6 +52,14 @@ public class Sugar implements Updateable
    
       add();
    }
+   
+   public void edit(double sugar, double saturated)
+   {
+   
+      this.sugar = sugar;
+      this.saturated = saturated;
+   
+   }
    public static Sugar empty_plot(int x,int y)
    {
       return new Sugar(x,y,0,0);

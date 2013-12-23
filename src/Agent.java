@@ -104,6 +104,11 @@ public class Agent implements Updateable
       for(int x = value*-1; x < value+1; x++)
          for(int y = value*-1; y < value+1; y++)       
          {
+         
+            if (Math.abs(x) == value && Math.abs(y) == value)
+            {
+               continue;
+            }
             int xp = getX() + x;
             int yp = getY() + y;
             
