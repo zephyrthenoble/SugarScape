@@ -1,6 +1,7 @@
 
 import java.awt.GridLayout;
-
+import javax.swing.JSeparator;
+import javax.swing.JSlider;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -8,6 +9,14 @@ import java.awt.event.*;
 
 public class InfoPanel extends JPanel implements Updateable
 {
+
+   public static final int MIN = 1;
+   public static final int MAX = 200;
+   public static final int INIT = 20;
+   private JSlider slider;
+
+   private JPanel innerPanel;
+
    private JPanel sugar;
    private JLabel sid = new JLabel("ID:\t", 0);
    private JLabel sposition = new JLabel("(x,y):\t", 0);
@@ -44,13 +53,15 @@ public class InfoPanel extends JPanel implements Updateable
    Agent a;
    public InfoPanel()
    {
-      super(new GridLayout(2,1));
+      super(new GridLayout(1,2));
+      innerPanel = new JPanel(new GridLayout(3,1));
+      add(innerPanel);
       sugar = new JPanel();
       agent = new JPanel();
       
       sugar.setLayout(new GridLayout(5,2));
       agent.setLayout(new GridLayout(5,2));
-      add(sugar);
+      innerPanel.add(sugar);
       
       
       sugar.add(sid);
@@ -64,7 +75,9 @@ public class InfoPanel extends JPanel implements Updateable
       sugar.add(sagent);
       sugar.add(sagentv);
       
-      add(agent);
+      innerPanel.add(new JSeparator());
+      
+      innerPanel.add(agent);
       agent.add(aid);
       agent.add(aidv);
       agent.add(aposition);
@@ -77,6 +90,10 @@ public class InfoPanel extends JPanel implements Updateable
       agent.add(ametv);
       
       
+      
+      slider = new JSlider(JSlider.VERTICAL, MIN, MAX, INIT);
+      
+      add(slider);
    }
    
    public void select(int x, int y)
