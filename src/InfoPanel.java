@@ -6,14 +6,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class InfoPanel extends JPanel implements Updateable
 {
 
-   public static final int MIN = 1;
-   public static final int MAX = 200;
-   public static final int INIT = 20;
-   private JSlider slider;
+   public static final int MIN = 0;
+   public static final int MAX = 50;
+   public static final int INIT = 10;
+   
 
    private JPanel innerPanel;
 
@@ -30,8 +32,9 @@ public class InfoPanel extends JPanel implements Updateable
    private JLabel smaxv = new JLabel("",0);
    private JLabel sagentv = new JLabel("",0);
    
-   
-   
+   private JPanel sliderPanel;
+   private JLabel sliderLabel;
+   private JSlider slider;
    
    private JPanel agent; 
    private JLabel aid = new JLabel("ID:\t", 0);
@@ -53,15 +56,14 @@ public class InfoPanel extends JPanel implements Updateable
    Agent a;
    public InfoPanel()
    {
-      super(new GridLayout(1,2));
-      innerPanel = new JPanel(new GridLayout(3,1));
-      add(innerPanel);
+      super(new GridLayout(3,1));
+   
       sugar = new JPanel();
       agent = new JPanel();
       
       sugar.setLayout(new GridLayout(5,2));
       agent.setLayout(new GridLayout(5,2));
-      innerPanel.add(sugar);
+      
       
       
       sugar.add(sid);
@@ -74,10 +76,23 @@ public class InfoPanel extends JPanel implements Updateable
       sugar.add(smaxv);
       sugar.add(sagent);
       sugar.add(sagentv);
+   
+      sliderPanel = new JPanel(new GridLayout(2,1));
+      slider = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
+      sliderLabel = new JLabel(""+INIT);
+      sliderLabel.setHorizontalAlignment(JLabel.CENTER);
+      sliderLabel.setVerticalAlignment(JLabel.TOP);
+      //slider.setMajorTickSpacing(10);
+      slider.setMinorTickSpacing(5);
+      slider.setPaintTicks(true);
+      //slider.setPaintLabels(true);
+      slider.addChangeListener(new Slider());
+      sliderPanel.add(slider);
+      sliderPanel.add(sliderLabel);
       
-      innerPanel.add(new JSeparator());
+   
       
-      innerPanel.add(agent);
+      
       agent.add(aid);
       agent.add(aidv);
       agent.add(aposition);
@@ -90,12 +105,25 @@ public class InfoPanel extends JPanel implements Updateable
       agent.add(ametv);
       
       
+      add(sugar);
+      add(agent); 
+      add(sliderPanel);
       
-      slider = new JSlider(JSlider.VERTICAL, MIN, MAX, INIT);
-      
-      add(slider);
-   }
    
+   }
+   private class Slider implements ChangeListener
+   {
+      public void stateChanged(ChangeEvent e)
+      {
+         JSlider source = (JSlider)e.getSource();
+         if (!source.getValueIsAdjusting()) {
+            int val = (int)source.getValue();
+            val = (int)Math.pow(val,2);
+            SugarPanel.newTimer(val);
+            sliderLabel.setText(""+val);
+         }
+      }
+   }
    public void select(int x, int y)
    {
       this.x = x;

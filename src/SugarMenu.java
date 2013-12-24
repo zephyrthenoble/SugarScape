@@ -159,7 +159,7 @@ public class SugarMenu extends JMenuBar
          System.out.println(f);
          loadFile(f);
          
-         
+         SugarPanel.randomAgents();
          
          SugarPanel.pause();
          toggle();

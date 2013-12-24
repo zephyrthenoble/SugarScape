@@ -36,7 +36,8 @@ public class SugarPanel extends JPanel
    public static Agent[][] agent_grid = new Agent[grid_width][grid_height];
    public static Sugar[][] sugar_grid = new Sugar[grid_width][grid_height];
    public static InfoPanel i;
-   Timer t=new Timer(timestep,new Updater());
+   public static Timer t;
+   private static Updater up;
    
    private class Updater implements ActionListener
    {
@@ -48,6 +49,8 @@ public class SugarPanel extends JPanel
    public SugarPanel(InfoPanel i)
    {
       this.i = i;
+      up = new Updater();
+      t=new Timer(timestep, up);
       myImage =  new BufferedImage(W, H, BufferedImage.TYPE_INT_RGB);
       myBuffer = myImage.createGraphics();
       myBuffer.setColor(BACKGROUND);
@@ -59,7 +62,11 @@ public class SugarPanel extends JPanel
       addKeyListener(new Key());
    
    }
-
+   public static void newTimer(int time)
+   {
+      t.setDelay(time);
+   
+   }
    public void update()
    {
    
@@ -86,7 +93,11 @@ public class SugarPanel extends JPanel
          Agent a=(Agent)it.next();
          a.update();
          if(a.removable())
+         {
+            SugarPanel.agent_grid[a.getX()][a.getY()] = null;
             it.remove();
+            
+         }
       }
       it = sugar.iterator();
       while(it.hasNext())
@@ -95,10 +106,7 @@ public class SugarPanel extends JPanel
          a.update();
          if(a.removable())
             it.remove();
-      }
-      
-      
-      
+      } 
    }
    public static boolean pause()
    {
@@ -159,12 +167,19 @@ public class SugarPanel extends JPanel
    }
    public void randomInit()
    {
+      randomAgents();
+      randomSugar();
+   }
+   public static void randomAgents()
+   {
       for(int x = 0; x < 10; x++)
       {
          Agent a = new Agent();
          if(verbose)System.out.println(a);
       }
-      
+   }
+   public static void randomSugar()
+   {
       for(int x = 0; x < (grid_width); x++)
          for(int y = 0; y < (grid_height); y++)
          {
