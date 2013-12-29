@@ -40,13 +40,13 @@ public class InfoPanel extends JPanel implements Updateable
    private JLabel aid = new JLabel("ID:\t", 0);
    private JButton aposition = new JButton("(x,y):\t");
    private JLabel asugar = new JLabel("Sugar:\t", 0);
-   private JLabel amax = new JLabel("Max sugar:\t", 0);
+   private JLabel aage = new JLabel("Age:\t", 0);
    private JLabel amet = new JLabel("Metabolism:\t", 0);
    
    private JLabel aidv = new JLabel("",0);
    private JLabel apositionv = new JLabel("",0);
    private JLabel asugarv = new JLabel("",0);
-   private JLabel amaxv = new JLabel("",0);
+   private JLabel aagev = new JLabel("",0);
    private JLabel ametv = new JLabel("",0);
    
    private int x = -1;
@@ -61,7 +61,7 @@ public class InfoPanel extends JPanel implements Updateable
       sugar = new JPanel();
       agent = new JPanel();
       
-      sugar.setLayout(new GridLayout(5,2));
+      sugar.setLayout(new GridLayout(6,2));
       agent.setLayout(new GridLayout(5,2));
       
       
@@ -99,11 +99,16 @@ public class InfoPanel extends JPanel implements Updateable
       agent.add(apositionv);
       agent.add(asugar);
       agent.add(asugarv);
-      agent.add(amax);
-      agent.add(amaxv);
+      agent.add(aage);
+      agent.add(aagev);
       agent.add(amet);
       agent.add(ametv);
       
+      
+      
+      sugar.add(new JSeparator());
+      sugar.add(new JSeparator());
+   
       
       add(sugar);
       add(agent); 
@@ -126,10 +131,19 @@ public class InfoPanel extends JPanel implements Updateable
    }
    public void select(int x, int y)
    {
-      this.x = x;
-      this.y = y;
-      s = SugarPanel.sugar_grid[x][y];
-      a = SugarPanel.agent_grid[x][y];
+      if (x < 0 || y < 0)
+      {
+         s=null;
+         a=null;
+      }
+      else
+      {
+         this.x = x;
+         this.y = y;
+         s = SugarPanel.sugar_grid[x][y];
+         a = SugarPanel.agent_grid[x][y];
+      }
+      update();
    }
    
    public void update()
@@ -157,11 +171,20 @@ public class InfoPanel extends JPanel implements Updateable
       
       if(a==null)
       {
-         ;
+         aidv.setText("");
+         apositionv.setText("");
+         asugarv.setText("");
+         aagev.setText("");
+         ametv.setText("");
       }
       else
       {
-         ;
+         aidv.setText(""+a.getID());
+         apositionv.setText(""+String.format("(%d, %d)",a.getX(),a.getY()));
+         asugarv.setText(""+a.getSugar());
+         aagev.setText(""+a.getAge());
+         ametv.setText(""+a.getMetabolism());
+       
       }
    }
    

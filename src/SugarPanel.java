@@ -60,6 +60,7 @@ public class SugarPanel extends JPanel
       t.start();
       i.select(1,1);
       addKeyListener(new Key());
+      addMouseListener(new Mouse());
    
    }
    public static void newTimer(int time)
@@ -204,6 +205,45 @@ public class SugarPanel extends JPanel
    public int getCellHeight()
    {
       return H/grid_height;
+   }
+   
+   public int getXCoord(int x)
+   {
+      return x/getCellWidth();
+   }
+   
+   public int getYCoord(int y)
+   {
+      return y/getCellHeight();
+   }
+   
+   private class Mouse implements MouseListener
+   {
+      public void mousePressed(MouseEvent e) {
+         ;
+      }
+   
+      public void mouseReleased(MouseEvent e) {
+         ;
+      }
+   
+      public void mouseEntered(MouseEvent e) {
+         ;
+      }
+   
+      public void mouseExited(MouseEvent e) {
+         ;
+      }
+   
+      public void mouseClicked(MouseEvent e) {
+         if (e.getButton() == MouseEvent.BUTTON1)
+         {
+            int x = getXCoord(e.getX());
+            int y = getYCoord(e.getY());
+            i.select(x, y);
+            System.out.println("(" + x + ", " + y + ")");
+         }
+      }
    }
    
    /*      | 0

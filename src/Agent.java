@@ -93,6 +93,28 @@ public class Agent implements Updateable
       addSugar(s.getSugar());
       s.removeSugar();
    }
+   
+   public Agent getNeighbor()
+   {
+      ArrayList<Agent> neighbors = new ArrayList<Agent>();
+      for(int x = -1; x <= 1; x++)
+         for(int y = -1; y <= 1; y++)       
+         {
+            if ((x==0 || y==0) && (x !=0 && y != 0))
+            {
+               Agent temp = SugarPanel.agent_grid[getX()][getY()];
+               if(temp != null)
+                  neighbors.add(temp);
+            }
+         }
+      if (neighbors.size() > 1)
+      {
+         System.out.println(""+neighbors);
+      }
+      Agent element = neighbors.get((int)(Math.random()*neighbors.size()));
+      return element;
+   }
+   
    public Sugar search()
    {
       ArrayList<Sugar> s= new ArrayList<Sugar>();
