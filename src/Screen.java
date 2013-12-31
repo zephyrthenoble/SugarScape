@@ -8,8 +8,11 @@ public class Screen extends JPanel
    public Screen()
    {
       super(new BorderLayout());
-      i=new InfoPanel();
-      p=new SugarPanel(i);
+      SugarPanel.init();
+      InfoPanel.init();
+      
+      i=InfoPanel.get();
+      p=SugarPanel.get();
       p.setPreferredSize(new Dimension(600,600));
    
       add(p, BorderLayout.CENTER);

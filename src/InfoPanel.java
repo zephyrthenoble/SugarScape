@@ -14,7 +14,7 @@ public class InfoPanel extends JPanel implements Updateable
 
    public static final int MIN = 0;
    public static final int MAX = 50;
-   public static final int INIT = 10;
+   public static final int INIT = (int)Math.sqrt(500);
    
 
    private JPanel innerPanel;
@@ -52,11 +52,23 @@ public class InfoPanel extends JPanel implements Updateable
    private int x = -1;
    private int y = -1;
    
-   Sugar s;
-   Agent a;
+   private Sugar s;
+   private Agent a;
+
+   
+   private static InfoPanel infopanel;
+   public static void init()
+   {
+      infopanel = new InfoPanel();
+   }
+   public static InfoPanel get()
+   {
+      return infopanel;
+   }
    public InfoPanel()
    {
       super(new GridLayout(3,1));
+   
    
       sugar = new JPanel();
       agent = new JPanel();
@@ -79,7 +91,7 @@ public class InfoPanel extends JPanel implements Updateable
    
       sliderPanel = new JPanel(new GridLayout(2,1));
       slider = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
-      sliderLabel = new JLabel(""+INIT);
+      sliderLabel = new JLabel(""+500);
       sliderLabel.setHorizontalAlignment(JLabel.CENTER);
       sliderLabel.setVerticalAlignment(JLabel.TOP);
       //slider.setMajorTickSpacing(10);
@@ -114,7 +126,24 @@ public class InfoPanel extends JPanel implements Updateable
       add(agent); 
       add(sliderPanel);
       
+      sagent.addActionListener(new SelectAgent());
+      aposition.addActionListener(new SelectSugar());
    
+   }
+   private class SelectAgent implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         a = s.getAgent();
+         //System.out.println("SelectAgent");
+      }
+   }
+   private class SelectSugar implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         s = a.getPlot();
+      }
    }
    private class Slider implements ChangeListener
    {
@@ -152,13 +181,13 @@ public class InfoPanel extends JPanel implements Updateable
       
       if(s==null)
       {
-         /*
-         sidv.setText();
-         spositionv.setText();
-         ssugarv.setText();
-         smaxv.setText();
-         sagentv.setText();
-         */
+         
+         sidv.setText("");
+         spositionv.setText("");
+         ssugarv.setText("");
+         smaxv.setText("");
+         sagentv.setText("");
+         
       }
       else
       {

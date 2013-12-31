@@ -8,6 +8,7 @@ public class SugarMenu extends JMenuBar
 {
    JMenu menu;
    JButton pause;
+   JButton step;
    JMenu _new;
    JMenuItem g, r, edit,load,save;
    
@@ -30,6 +31,11 @@ public class SugarMenu extends JMenuBar
       pause.setActionCommand("pause");
       pause.addActionListener(new Pause());
       add(pause);
+      
+      step = new JButton("Step");
+      step.setActionCommand("step");
+      step.addActionListener(new Step());
+      add(step);
       
       _new = new JMenu("New");
       menu.add(_new);
@@ -118,6 +124,17 @@ public class SugarMenu extends JMenuBar
       {
          SugarPanel.pause();
          toggle();
+      }
+   }
+   
+   private class Step implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         if(!SugarPanel.running){
+            SugarPanel.get().update_state();
+            SugarPanel.get().update();
+         }
       }
    }
   

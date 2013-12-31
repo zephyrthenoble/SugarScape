@@ -76,6 +76,8 @@ public class Agent implements Updateable
       sugar+=x;}
    public int getAge(){
       return age;}
+   public Sugar getPlot(){
+      return SugarPanel.sugar_grid[getX()][getY()];}
    public int getDeathAge(){
       return death_age;}
    public double getReproductionRate(){
@@ -110,9 +112,11 @@ public class Agent implements Updateable
       if (neighbors.size() > 1)
       {
          System.out.println(""+neighbors);
+      
+         Agent element = neighbors.get((int)(Math.random()*neighbors.size()));
+         return element;
       }
-      Agent element = neighbors.get((int)(Math.random()*neighbors.size()));
-      return element;
+      return null;
    }
    
    public Sugar search()

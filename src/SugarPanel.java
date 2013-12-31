@@ -39,6 +39,8 @@ public class SugarPanel extends JPanel
    public static Timer t;
    private static Updater up;
    
+   private static SugarPanel sugarpanel;
+   
    private class Updater implements ActionListener
    {
       public void actionPerformed(ActionEvent e)
@@ -46,9 +48,22 @@ public class SugarPanel extends JPanel
          update();
       }
    }
-   public SugarPanel(InfoPanel i)
+   public static void init()
    {
-      this.i = i;
+      sugarpanel = new SugarPanel();
+      get().randomInit();
+   }
+   public static SugarPanel get()
+   {
+      return sugarpanel;
+   }
+   public static SugarPanel getSugarPanel()
+   {
+      return sugarpanel;
+   }
+   public SugarPanel()
+   {
+   
       up = new Updater();
       t=new Timer(timestep, up);
       myImage =  new BufferedImage(W, H, BufferedImage.TYPE_INT_RGB);
@@ -56,12 +71,12 @@ public class SugarPanel extends JPanel
       myBuffer.setColor(BACKGROUND);
       myBuffer.fillRect(0, 0, W, H);
       setFocusable(true);
-      init();
-      t.start();
-      i.select(1,1);
+      //InfoPanel.get().select(1,1);
       addKeyListener(new Key());
       addMouseListener(new Mouse());
-   
+      
+      
+      t.start();
    }
    public static void newTimer(int time)
    {
@@ -70,8 +85,6 @@ public class SugarPanel extends JPanel
    }
    public void update()
    {
-   
-   
       myImage =  new BufferedImage(W, H, BufferedImage.TYPE_INT_RGB);
       myBuffer = myImage.createGraphics();
       myBuffer.setColor(BACKGROUND);
@@ -82,7 +95,7 @@ public class SugarPanel extends JPanel
          
       draw_state();
       
-      i.update();
+      InfoPanel.get().update();
       
       repaint();
    }
@@ -162,10 +175,7 @@ public class SugarPanel extends JPanel
       sugar_grid = null;
    }
    
-   public void init()
-   {
-      randomInit();
-   }
+
    public void randomInit()
    {
       randomAgents();
@@ -240,7 +250,7 @@ public class SugarPanel extends JPanel
          {
             int x = getXCoord(e.getX());
             int y = getYCoord(e.getY());
-            i.select(x, y);
+            InfoPanel.get().select(x, y);
             System.out.println("(" + x + ", " + y + ")");
          }
       }
