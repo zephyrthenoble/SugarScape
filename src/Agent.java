@@ -28,12 +28,12 @@ public class Agent implements Updateable
       int iter = 0;
       do{
          if(SugarPanel.verbose && iter>=1)
-            System.out.println(String.format("intersect at (%d,%d) with agent %d", xpos, ypos, SugarPanel.agent_grid[xpos][ypos].id));
-         this.xpos = (int)(Math.random()*SugarPanel.agent_grid.length);
-         this.ypos = (int)(Math.random()*SugarPanel.agent_grid[0].length);
+            System.out.println(String.format("intersect at (%d,%d) with agent %d", xpos, ypos, SugarPanel.getAgentGrid()[xpos][ypos].id));
+         this.xpos = (int)(Math.random()*SugarPanel.getAgentGrid().length);
+         this.ypos = (int)(Math.random()*SugarPanel.getAgentGrid()[0].length);
          iter++;
       }
-      while(SugarPanel.agent_grid[this.xpos][this.ypos] !=null);
+      while(SugarPanel.getAgentGrid()[this.xpos][this.ypos] !=null);
       
      
       add();
@@ -43,8 +43,8 @@ public class Agent implements Updateable
       id = Agent.ID;
       Agent.ID++;
       sugar = (int)(Math.random()*10) + 5;
-      SugarPanel.agent_grid[xpos][ypos] = this;
-      SugarPanel.agents.add(this);
+      SugarPanel.getAgentGrid()[xpos][ypos] = this;
+      SugarPanel.getAgents().add(this);
    }
    public void update()
    {
@@ -77,7 +77,7 @@ public class Agent implements Updateable
    public int getAge(){
       return age;}
    public Sugar getPlot(){
-      return SugarPanel.sugar_grid[getX()][getY()];}
+      return SugarPanel.getSugarGrid()[getX()][getY()];}
    public int getDeathAge(){
       return death_age;}
    public double getReproductionRate(){
@@ -88,10 +88,10 @@ public class Agent implements Updateable
       return remove;}
    public void moveTo(Sugar s)
    {
-      SugarPanel.agent_grid[getX()][getY()] = null;
+      SugarPanel.getAgentGrid()[getX()][getY()] = null;
       setX(s.getX());
       setY(s.getY());
-      SugarPanel.agent_grid[getX()][getY()] = this;
+      SugarPanel.getAgentGrid()[getX()][getY()] = this;
       addSugar(s.getSugar());
       s.removeSugar();
    }
@@ -104,7 +104,7 @@ public class Agent implements Updateable
          {
             if ((x==0 || y==0) && (x !=0 && y != 0))
             {
-               Agent temp = SugarPanel.agent_grid[getX()][getY()];
+               Agent temp = SugarPanel.getAgentGrid()[getX()][getY()];
                if(temp != null)
                   neighbors.add(temp);
             }
@@ -138,19 +138,19 @@ public class Agent implements Updateable
             int xp = getX() + x;
             int yp = getY() + y;
             
-            if (xp >=0 && xp < SugarPanel.grid_width && yp >=0 && yp < SugarPanel.grid_height)
-               if(SugarPanel.agent_grid[xp][yp] == null)
+            if (xp >=0 && xp < SugarPanel.getGridWidth() && yp >=0 && yp < SugarPanel.getGridHeight())
+               if(SugarPanel.getAgentGrid()[xp][yp] == null)
                {
-                  empty.add(SugarPanel.sugar_grid[xp][yp]);
-                  if (SugarPanel.sugar_grid[xp][yp].getSugar() > max)
+                  empty.add(SugarPanel.getSugarGrid()[xp][yp]);
+                  if (SugarPanel.getSugarGrid()[xp][yp].getSugar() > max)
                   {
                      s = new ArrayList<Sugar>();
-                     s.add(SugarPanel.sugar_grid[xp][yp]);
-                     max = SugarPanel.sugar_grid[xp][yp].getSugar();
+                     s.add(SugarPanel.getSugarGrid()[xp][yp]);
+                     max = SugarPanel.getSugarGrid()[xp][yp].getSugar();
                   }
-                  if (SugarPanel.sugar_grid[xp][yp].getSugar() == max)
+                  if (SugarPanel.getSugarGrid()[xp][yp].getSugar() == max)
                   {
-                     s.add(SugarPanel.sugar_grid[xp][yp]);
+                     s.add(SugarPanel.getSugarGrid()[xp][yp]);
                   }
                }
          }

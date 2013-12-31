@@ -42,12 +42,12 @@ public class Sugar implements Updateable
       int iter = 0;
       do{
          if(SugarPanel.verbose && iter>=1)
-            System.out.println(String.format("intersect at (%d,%d) with sugar %d", xpos, ypos, SugarPanel.sugar_grid[xpos][ypos].id));
-         this.xpos = (int)(Math.random()*SugarPanel.sugar_grid.length);
-         this.ypos = (int)(Math.random()*SugarPanel.sugar_grid[0].length);
+            System.out.println(String.format("intersect at (%d,%d) with sugar %d", xpos, ypos, SugarPanel.getSugarGrid()[xpos][ypos].id));
+         this.xpos = (int)(Math.random()*SugarPanel.getSugarGrid().length);
+         this.ypos = (int)(Math.random()*SugarPanel.getSugarGrid()[0].length);
          iter++;
       }
-      while(SugarPanel.sugar_grid[this.xpos][this.ypos] !=null);
+      while(SugarPanel.getSugarGrid()[this.xpos][this.ypos] !=null);
       
    
       add();
@@ -68,8 +68,8 @@ public class Sugar implements Updateable
    {
       id = Sugar.ID;
       Sugar.ID++;
-      SugarPanel.sugar_grid[xpos][ypos] = this;
-      SugarPanel.sugar.add(this);
+      SugarPanel.getSugarGrid()[xpos][ypos] = this;
+      SugarPanel.getSugar().add(this);
    }
    public int getID(){
       return id;}
@@ -82,10 +82,10 @@ public class Sugar implements Updateable
    public double getMaxSugar(){
       return saturated;}
    public Agent getAgent(){
-      if(SugarPanel.agent_grid == null)
+      if(SugarPanel.getAgentGrid() == null)
          return null;
       else
-         return SugarPanel.agent_grid[getX()][getY()];
+         return SugarPanel.getAgentGrid()[getX()][getY()];
    }
    public String getAgentID(){
       if(getAgent() != null)
@@ -99,7 +99,7 @@ public class Sugar implements Updateable
       return remove;}
    public void update()
    {
-      if(SugarPanel.agent_grid[getX()][getY()] == null)
+      if(SugarPanel.getAgentGrid()[getX()][getY()] == null)
       {
          if (sugar < saturated)
             sugar +=rate;

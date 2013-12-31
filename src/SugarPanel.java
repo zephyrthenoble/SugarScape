@@ -17,27 +17,27 @@ import java.io.FileNotFoundException;
 public class SugarPanel extends JPanel
 {      
    public static boolean verbose = false;
-   public static boolean running = true;
+   public boolean running = true;
    public static boolean[] keys=new boolean[5];
    public static int timestep = 500;
 
 	
 
-   public static Graphics2D myBuffer;
-   public static BufferedImage myImage;
+   public Graphics2D myBuffer;
+   public BufferedImage myImage;
 
    public static final Color BACKGROUND=Color.white;
    public static int W=600;
    public static int H=600;
-   public static int grid_width = 10;
-   public static int grid_height = 10;
-   public static ArrayList<Agent> agents=new ArrayList<Agent>();
-   public static ArrayList<Sugar> sugar=new ArrayList<Sugar>();
-   public static Agent[][] agent_grid = new Agent[grid_width][grid_height];
-   public static Sugar[][] sugar_grid = new Sugar[grid_width][grid_height];
-   public static InfoPanel i;
-   public static Timer t;
-   private static Updater up;
+   public int grid_width = 10;
+   public int grid_height = 10;
+   public ArrayList<Agent> agents=new ArrayList<Agent>();
+   public ArrayList<Sugar> sugar=new ArrayList<Sugar>();
+   public Agent[][] agent_grid = new Agent[grid_width][grid_height];
+   public Sugar[][] sugar_grid = new Sugar[grid_width][grid_height];
+   public InfoPanel i;
+   public Timer t;
+   private Updater up;
    
    private static SugarPanel sugarpanel;
    
@@ -56,10 +56,42 @@ public class SugarPanel extends JPanel
    public static SugarPanel get()
    {
       return sugarpanel;
-   }
-   public static SugarPanel getSugarPanel()
+   }      
+   public static int getGridWidth()
    {
-      return sugarpanel;
+      if(sugarpanel != null)
+         return sugarpanel.grid_width;
+      return 0;
+   }
+   public static int getGridHeight()
+   {
+      if(sugarpanel != null)
+         return sugarpanel.grid_height;
+      return 0;
+   }
+   public static Sugar[][] getSugarGrid()
+   {
+      if(sugarpanel != null)
+         return sugarpanel.sugar_grid;
+      return null;
+   }
+   public static Agent[][] getAgentGrid()
+   {
+      if(sugarpanel != null)
+         return sugarpanel.agent_grid;
+      return null;
+   }
+   public static ArrayList<Agent> getAgents()
+   {
+      if(sugarpanel != null)
+         return sugarpanel.agents;
+      return null;
+   }
+   public static ArrayList<Sugar> getSugar()
+   {
+      if(sugarpanel != null)
+         return sugarpanel.sugar;
+      return null;
    }
    public SugarPanel()
    {
@@ -78,7 +110,7 @@ public class SugarPanel extends JPanel
       
       t.start();
    }
-   public static void newTimer(int time)
+   public void newTimer(int time)
    {
       t.setDelay(time);
    
@@ -108,7 +140,7 @@ public class SugarPanel extends JPanel
          a.update();
          if(a.removable())
          {
-            SugarPanel.agent_grid[a.getX()][a.getY()] = null;
+            agent_grid[a.getX()][a.getY()] = null;
             it.remove();
             
          }
@@ -122,7 +154,7 @@ public class SugarPanel extends JPanel
             it.remove();
       } 
    }
-   public static boolean pause()
+   public boolean pause()
    {
       if (running)
       {
@@ -167,7 +199,7 @@ public class SugarPanel extends JPanel
       g.drawImage(myImage, 0, 0, getWidth(), getHeight(), null);
       
    }
-   public static void clear()
+   public void clear()
    {
       agents = new ArrayList<Agent>();
       sugar = new ArrayList<Sugar>();
@@ -175,13 +207,19 @@ public class SugarPanel extends JPanel
       sugar_grid = null;
    }
    
-
+   public void newGrid(int rows, int cols)
+   {
+      sugar_grid = new Sugar[rows][cols];
+      agent_grid = new Agent[rows][cols];
+      grid_width = rows;
+      grid_height = cols;
+   }
    public void randomInit()
    {
       randomAgents();
       randomSugar();
    }
-   public static void randomAgents()
+   public void randomAgents()
    {
       for(int x = 0; x < 10; x++)
       {
@@ -189,7 +227,7 @@ public class SugarPanel extends JPanel
          if(verbose)System.out.println(a);
       }
    }
-   public static void randomSugar()
+   public void randomSugar()
    {
       for(int x = 0; x < (grid_width); x++)
          for(int y = 0; y < (grid_height); y++)

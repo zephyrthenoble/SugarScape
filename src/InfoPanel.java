@@ -153,7 +153,7 @@ public class InfoPanel extends JPanel implements Updateable
          if (!source.getValueIsAdjusting()) {
             int val = (int)source.getValue();
             val = (int)Math.pow(val,2);
-            SugarPanel.newTimer(val);
+            SugarPanel.get().newTimer(val);
             sliderLabel.setText(""+val);
          }
       }
@@ -169,8 +169,8 @@ public class InfoPanel extends JPanel implements Updateable
       {
          this.x = x;
          this.y = y;
-         s = SugarPanel.sugar_grid[x][y];
-         a = SugarPanel.agent_grid[x][y];
+         s = SugarPanel.getSugarGrid()[x][y];
+         a = SugarPanel.getAgentGrid()[x][y];
       }
       update();
    }

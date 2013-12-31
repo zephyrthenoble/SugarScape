@@ -93,9 +93,9 @@ public class SugarMenu extends JMenuBar
          int count = 0;
          int xpos = 0;
          int ypos = 0;
-         SugarPanel.clear();
-         SugarPanel.sugar_grid = new Sugar[rows][cols];
-         SugarPanel.agent_grid = new Agent[rows][cols];
+         SugarPanel.get().clear();
+         SugarPanel.get().newGrid(rows,cols);
+      
          while(infile.hasNext())
          {
             int value = infile.nextInt();
@@ -104,8 +104,7 @@ public class SugarMenu extends JMenuBar
             Sugar a = new Sugar(xpos, ypos, value, value);
             count++;
          }
-         SugarPanel.grid_width = rows;
-         SugarPanel.grid_height = cols;
+      
          
          for(int x = 0; x < (Math.sqrt(rows*cols))/4+1; x++)
          {
@@ -122,7 +121,7 @@ public class SugarMenu extends JMenuBar
    {
       public void actionPerformed(ActionEvent e)
       {
-         SugarPanel.pause();
+         SugarPanel.get().pause();
          toggle();
       }
    }
@@ -131,7 +130,7 @@ public class SugarMenu extends JMenuBar
    {
       public void actionPerformed(ActionEvent e)
       {
-         if(!SugarPanel.running){
+         if(!SugarPanel.get().running){
             SugarPanel.get().update_state();
             SugarPanel.get().update();
          }
@@ -149,7 +148,7 @@ public class SugarMenu extends JMenuBar
    {
       public void actionPerformed(ActionEvent e)
       {
-         System.out.println(e);
+         SugarPanel.get();
       }
    }
    private class Edit implements ActionListener
@@ -165,7 +164,7 @@ public class SugarMenu extends JMenuBar
       {
          System.out.println(e);
          
-         SugarPanel.pause();
+         SugarPanel.get().pause();
          toggle();
          
          
@@ -173,12 +172,12 @@ public class SugarMenu extends JMenuBar
          int returnVal = fc.showOpenDialog(null);
          
          File f = fc.getSelectedFile();
-         System.out.println(f);
+         //System.out.println(f);
          loadFile(f);
          
-         SugarPanel.randomAgents();
+         SugarPanel.get().randomAgents();
          
-         SugarPanel.pause();
+         SugarPanel.get().pause();
          toggle();
          //Scanner infile = new Scanner(new File("\Resources\Maps"))
       }
