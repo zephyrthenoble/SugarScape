@@ -148,7 +148,7 @@ public class SugarMenu extends JMenuBar
    {
       public void actionPerformed(ActionEvent e)
       {
-         SugarPanel.get();
+         SugarPanel.get().randomInit();
       }
    }
    private class Edit implements ActionListener
@@ -164,22 +164,26 @@ public class SugarMenu extends JMenuBar
       {
          System.out.println(e);
          
-         SugarPanel.get().pause();
-         toggle();
+         if(SugarPanel.get().running)
+         {
+            SugarPanel.get().pause();
+            toggle();
+         }
          
          
       
          int returnVal = fc.showOpenDialog(null);
          
          File f = fc.getSelectedFile();
-         //System.out.println(f);
          loadFile(f);
          
          SugarPanel.get().randomAgents();
          
-         SugarPanel.get().pause();
-         toggle();
-         //Scanner infile = new Scanner(new File("\Resources\Maps"))
+         if(SugarPanel.get().running)
+         {
+            SugarPanel.get().pause();
+            toggle();
+         }
       }
    }
 

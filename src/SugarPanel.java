@@ -216,6 +216,8 @@ public class SugarPanel extends JPanel
    }
    public void randomInit()
    {
+      clear();
+      newGrid(grid_width, grid_height);
       randomAgents();
       randomSugar();
    }
