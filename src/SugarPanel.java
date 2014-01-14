@@ -170,7 +170,8 @@ public class SugarPanel extends JPanel
    }
    public void draw_state()
    {
-   
+      int cellWidth=getCellWidth();
+      int cellHeight=getCellHeight();
       
       for (Sugar a: sugar)
       {
@@ -186,15 +187,25 @@ public class SugarPanel extends JPanel
                break;
             default: myBuffer.setColor(Color.white);
          }
-         myBuffer.fillRect(getCellWidth()*a.getX(), getCellHeight()*a.getY(), getCellWidth(), getCellHeight());
+         myBuffer.fillRect(cellWidth*a.getX(), cellHeight*a.getY(), cellWidth, cellHeight);
       }
       
       
       for (Agent a: agents)
       {
-         int age = a.getAge();
-         myBuffer.setColor(new Color((255-age)%255,255,(age)%255));
-         myBuffer.fillOval(getCellWidth()*a.getX()+4, getCellHeight()*a.getY()+4, getCellWidth()-8, getCellHeight()-8);
+         if(!running)
+            System.out.println("I'm paused");
+         int age = a.getID()%256;
+         //System.out.println(""+age);
+         myBuffer.setColor(new Color((255-age),(int)((a.getSugar()%256)*20)%256,age));
+         myBuffer.fillOval(cellWidth*a.getX()+4, cellHeight*a.getY()+4, cellWidth-8, cellHeight-8);
+         
+         myBuffer.setColor(Color.black);
+         //myBuffer.setStroke(new B
+         Line l = a.getLine().copy();
+         l.scaleX(cellWidth);
+         l.scaleY(cellHeight);
+         myBuffer.draw(l);
       }
    }
    

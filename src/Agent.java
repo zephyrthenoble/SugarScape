@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.awt.geom.Line2D.Double;
+import java.awt.geom.Line2D;
 
 public class Agent implements Updateable
 {
@@ -12,9 +14,10 @@ public class Agent implements Updateable
    private double sugar;
    private int age = 0;
    private int death_age = 100 + (int)(Math.random()*100);
-   private double reproduction_rate=Math.random()/50; 
+   private double reproduction_rate=Math.random()/20; 
    private int id;
    private boolean remove = false;
+   private Line line;
    public Agent(int xpos, int ypos)
    {
       this.xpos = xpos;
@@ -40,6 +43,7 @@ public class Agent implements Updateable
    }
    public void add()
    {
+      line = new Line(getX(),getY(),getX(),getY());
       id = Agent.ID;
       Agent.ID++;
       sugar = (int)(Math.random()*10) + 5;
@@ -65,6 +69,10 @@ public class Agent implements Updateable
       age++;
       if (age>=death_age || sugar < 0)
          remove = true;
+   }
+   public Line getLine()
+   {
+      return line;
    }
    public int getX(){
       return xpos;} 
@@ -99,6 +107,7 @@ public class Agent implements Updateable
       int y = s.getY();
       double dist = Math.sqrt((double)(x-getX())*(x-getX()) + (double)(y-getY())*(y-getY())  );
       double sugarx = dist / 2 + 1;
+      line.setLine(this.getX()+.5, this.getY()+.5, x+.5, y+.5);
       setX(x);
       setY(y);
       SugarPanel.getAgentGrid()[getX()][getY()] = this;
