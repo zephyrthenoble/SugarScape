@@ -193,8 +193,7 @@ public class SugarPanel extends JPanel
       
       for (Agent a: agents)
       {
-         if(!running)
-            System.out.println("I'm paused");
+      
          int age = a.getID()%256;
          //System.out.println(""+age);
          myBuffer.setColor(new Color((255-age),(int)((a.getSugar()%256)*20)%256,age));

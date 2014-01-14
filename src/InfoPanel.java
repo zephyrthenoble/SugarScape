@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import java.awt.event.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.text.DecimalFormat;
 
 public class InfoPanel extends JPanel implements Updateable
 {
@@ -16,8 +17,11 @@ public class InfoPanel extends JPanel implements Updateable
    public static final int MAX = 50;
    public static final int INIT = (int)Math.sqrt(500);
    
+   public static DecimalFormat df = new DecimalFormat("####0.000");
 
    private JPanel innerPanel;
+
+   private int value = 0;
 
    private JPanel sugar;
    private JLabel sid = new JLabel("ID:\t", 0);
@@ -45,7 +49,7 @@ public class InfoPanel extends JPanel implements Updateable
    
    private JLabel aidv = new JLabel("",0);
    private JLabel apositionv = new JLabel("",0);
-   private JLabel asugarv = new JLabel("",0);
+   private JLabel asugarv = new JLabel(df.format(value),0);
    private JLabel aagev = new JLabel("",0);
    private JLabel ametv = new JLabel("",0);
    
@@ -202,18 +206,24 @@ public class InfoPanel extends JPanel implements Updateable
       {
          aidv.setText("");
          apositionv.setText("");
-         asugarv.setText("");
+         asugarv.setText(df.format(0));
          aagev.setText("");
          ametv.setText("");
       }
       else
       {
-         aidv.setText(""+a.getID());
-         apositionv.setText(""+String.format("(%d, %d)",a.getX(),a.getY()));
-         asugarv.setText(""+a.getSugar());
-         aagev.setText(""+a.getAge());
-         ametv.setText(""+a.getMetabolism());
-       
+         if(a.removable())
+         {
+            a=null;
+         }
+         else
+         {
+            aidv.setText(""+a.getID());
+            apositionv.setText(""+String.format("(%d, %d)",a.getX(),a.getY()));
+            asugarv.setText(""+df.format(a.getSugar()));
+            aagev.setText(""+a.getAge());
+            ametv.setText(""+a.getMetabolism());
+         }
       }
    }
    
