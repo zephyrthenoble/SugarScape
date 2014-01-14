@@ -12,7 +12,7 @@ public class Agent implements Updateable
    private double sugar;
    private int age = 0;
    private int death_age = 100 + (int)(Math.random()*100);
-   private double reproduction_rate=Math.random()/20; 
+   private double reproduction_rate=Math.random()/50; 
    private int id;
    private boolean remove = false;
    public Agent(int xpos, int ypos)
@@ -48,14 +48,20 @@ public class Agent implements Updateable
    }
    public void update()
    {
+   //reproduce if lucky
+      if(Math.random() < getReproductionRate())
+      {
+         reproduce();
+      }
+      
       Sugar s = search();
       if(SugarPanel.verbose) System.out.println("Going to "+s);
       if (s!=null)
       {
          moveTo(s);
       }
-      else if(SugarPanel.verbose)
-         System.out.println(this);
+      else 
+         moveTo(SugarPanel.getSugarGrid()[getX()][getY()]);
       age++;
       if (age>=death_age || sugar < 0)
          remove = true;
@@ -89,27 +95,79 @@ public class Agent implements Updateable
    public void moveTo(Sugar s)
    {
       SugarPanel.getAgentGrid()[getX()][getY()] = null;
-      setX(s.getX());
-      setY(s.getY());
+      int x = s.getX();
+      int y = s.getY();
+      double dist = Math.sqrt((double)(x-getX())*(x-getX()) + (double)(y-getY())*(y-getY())  );
+      double sugarx = dist / 2 + 1;
+      setX(x);
+      setY(y);
       SugarPanel.getAgentGrid()[getX()][getY()] = this;
-      addSugar(s.getSugar());
+      
+      addSugar(s.getSugar()-sugarx);
+      
       s.removeSugar();
    }
+   public void reproduce()
+   {
+      System.out.println("Reproducing "+this);
+     
+      Agent a = getNeighbor();
+      
+      System.out.println(""+a);
+      
+      Sugar s = getOpenSpace();
+      
+      if(s!=null && a!=null)
+      {
+         new Agent(s.getX(), s.getY());
+      }
+   }
    
+   public Sugar getOpenSpace()
+   {
+      ArrayList<Sugar> plots = new ArrayList<Sugar>();
+      Sugar[][] grid = SugarPanel.getSugarGrid();
+      int xp = getX();
+      int yp = getY();
+      for(int x = -2; x <= 2; x++)
+         for(int y = -2; y <= 2; y++)       
+         {
+            if (!(x==0 && y==0) && x+xp>=0 && y+yp>=0 && x+xp<grid.length &&y+yp<grid[0].length)
+            {
+               if(grid[x+xp][y+yp].getAgent() == null)
+               {
+                  plots.add(grid[x+xp][y+yp]);
+               }
+            }
+         }
+      if (plots.size() >= 1)
+      {
+         System.out.println(""+plots);
+      
+         Sugar element = plots.get((int)(Math.random()*plots.size()));
+         return element;
+      }
+      return null;
+   }
    public Agent getNeighbor()
    {
       ArrayList<Agent> neighbors = new ArrayList<Agent>();
-      for(int x = -1; x <= 1; x++)
-         for(int y = -1; y <= 1; y++)       
+      Agent[][] grid = SugarPanel.getAgentGrid();
+      int xp = getX();
+      int yp = getY();
+      for(int x = -2; x <= 2; x++)
+         for(int y = -2; y <= 2; y++)       
          {
-            if ((x==0 || y==0) && (x !=0 && y != 0))
+            int newx = xp+x;
+            int newy = xp+y;
+            if (!(x==0 && y==0) && x+xp>=0 && y+yp>=0 && x+xp<grid.length &&y+yp<grid[0].length)
             {
-               Agent temp = SugarPanel.getAgentGrid()[getX()][getY()];
+               Agent temp = grid[x+xp][y+yp];
                if(temp != null)
                   neighbors.add(temp);
             }
          }
-      if (neighbors.size() > 1)
+      if (neighbors.size() >= 1)
       {
          System.out.println(""+neighbors);
       

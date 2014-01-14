@@ -133,7 +133,8 @@ public class SugarPanel extends JPanel
    }
    public void update_state()
    {
-      Iterator it = agents.iterator();
+      ArrayList<Agent> agentcopy = new ArrayList<Agent>(agents);
+      Iterator it = agentcopy.iterator();
       while(it.hasNext())
       {
          Agent a=(Agent)it.next();
@@ -141,18 +142,21 @@ public class SugarPanel extends JPanel
          if(a.removable())
          {
             agent_grid[a.getX()][a.getY()] = null;
-            it.remove();
+            agents.remove(a);
             
          }
       }
-      it = sugar.iterator();
+      
+      ArrayList<Sugar> sugarcopy = new ArrayList<Sugar>(sugar);
+      it = sugarcopy.iterator();
       while(it.hasNext())
       {
          Sugar a=(Sugar)it.next();
          a.update();
          if(a.removable())
-            it.remove();
+            sugar.remove(a);
       } 
+      
    }
    public boolean pause()
    {
@@ -185,10 +189,11 @@ public class SugarPanel extends JPanel
          myBuffer.fillRect(getCellWidth()*a.getX(), getCellHeight()*a.getY(), getCellWidth(), getCellHeight());
       }
       
-      myBuffer.setColor(Color.black);
+      
       for (Agent a: agents)
       {
-      
+         int age = a.getAge();
+         myBuffer.setColor(new Color((255-age)%255,255,(age)%255));
          myBuffer.fillOval(getCellWidth()*a.getX()+4, getCellHeight()*a.getY()+4, getCellWidth()-8, getCellHeight()-8);
       }
    }
@@ -223,7 +228,7 @@ public class SugarPanel extends JPanel
    }
    public void randomAgents()
    {
-      for(int x = 0; x < 10; x++)
+      for(int x = 0; x < 7; x++)
       {
          Agent a = new Agent();
          if(verbose)System.out.println(a);
