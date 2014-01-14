@@ -69,6 +69,10 @@ public class InfoPanel extends JPanel implements Updateable
    {
       return infopanel;
    }
+   public static Sugar getSelected()
+   {
+      return get().s;
+   }
    public InfoPanel()
    {
       super(new GridLayout(3,1));

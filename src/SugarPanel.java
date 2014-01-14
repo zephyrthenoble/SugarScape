@@ -175,21 +175,44 @@ public class SugarPanel extends JPanel
       
       for (Sugar a: sugar)
       {
-         switch((int)a.getSugar())
+         if( a == InfoPanel.getSelected())
          {
-            case 4: myBuffer.setColor(Color.green); 
-               break;
-            case 3: myBuffer.setColor(Color.yellow); 
-               break;
-            case 2: myBuffer.setColor(Color.orange); 
-               break;
-            case 1: myBuffer.setColor(Color.blue); 
-               break;
-            default: myBuffer.setColor(Color.white);
+            myBuffer.setColor(Color.black);
+            myBuffer.fillRect(cellWidth*a.getX(), cellHeight*a.getY(), cellWidth, cellHeight);
+            switch((int)a.getSugar())
+            {
+               case 4: myBuffer.setColor(Color.green); 
+                  break;
+               case 3: myBuffer.setColor(Color.yellow); 
+                  break;
+               case 2: myBuffer.setColor(Color.orange); 
+                  break;
+               case 1: myBuffer.setColor(Color.blue); 
+                  break;
+               default: myBuffer.setColor(Color.white);
+            }
+         
+            myBuffer.fillRect(cellWidth*a.getX()+2, cellHeight*a.getY()+2, cellWidth-4, cellHeight-4);
          }
-         myBuffer.fillRect(cellWidth*a.getX(), cellHeight*a.getY(), cellWidth, cellHeight);
+         else
+         {
+            myBuffer.fillRect(cellWidth*a.getX(), cellHeight*a.getY(), cellWidth, cellHeight);
+            switch((int)a.getSugar())
+            {
+            
+               case 4: myBuffer.setColor(Color.green); 
+                  break;
+               case 3: myBuffer.setColor(Color.yellow); 
+                  break;
+               case 2: myBuffer.setColor(Color.orange); 
+                  break;
+               case 1: myBuffer.setColor(Color.blue); 
+                  break;
+               default: myBuffer.setColor(Color.white);
+            }
+         }
       }
-      
+   
       
       for (Agent a: agents)
       {
@@ -206,6 +229,7 @@ public class SugarPanel extends JPanel
          l.scaleY(cellHeight);
          myBuffer.draw(l);
       }
+      
    }
    
    public void paintComponent(Graphics g)
@@ -307,6 +331,8 @@ public class SugarPanel extends JPanel
             int y = getYCoord(e.getY());
             InfoPanel.get().select(x, y);
             System.out.println("(" + x + ", " + y + ")");
+            draw_state();
+            repaint();
          }
       }
    }
